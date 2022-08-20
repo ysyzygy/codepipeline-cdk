@@ -1,0 +1,65 @@
+{
+  "pipelines": [
+    {
+      "artifact_name": "artifactoutput",
+      "role_name": "pipeline",
+      "timeout_minutes": 60,
+      "pipeline_stack_name": "pipeline-stack",
+      "description": "Pipeline to create CI/CD and all dev infra",
+      "pipeline_name": "codepipeline",
+      "codecommit_name": "codecommit",
+      "policy_name": "assumepolicy",
+      "account_id": "xxxxxxx",
+      "environment": "dev",
+      "source_account_id": "xxxxxx",
+      "branch": "develop"
+    },
+    {
+      "artifact_name": "artifactoutput",
+      "role_name": "pipeline",
+      "timeout_minutes": 60,
+      "pipeline_stack_name": "pipeline-stack",
+      "description": "Pipeline to create CI/CD and all pro infra",
+      "pipeline_name": "codepipeline",
+      "codecommit_name": "codecommit",
+      "policy_name": "assumepolicy",
+      "account_id": "xxxxx",
+      "environment": "prod",
+      "source_account_id": "xxxxxx",
+      "branch": "master"
+    }
+  ],
+  "repo_name": "coderepository",
+  "codebuild_buildstage": {
+    "name": "build",
+    "description": "Build project"
+  },
+  "codebuild_test_resourcestage": {
+    "name": "test-cicd",
+    "description": "Diff CI/CD infra in resource account"
+  },
+  "codebuild_deploy_resourcestage": {
+    "name": "deploy-cicd",
+    "description": "Deploy CI/CD infra in resource account"
+  },
+  "codebuild_test_accountstage": {
+    "name": "test-app",
+    "description": "Diff: Detect changes in aws services"
+  },
+  "codebuild_deploy_accountstage": {
+    "name": "deploy-app",
+    "description": "Deploy all necessary aws services"
+  },
+  "project": {
+    "name": "name",
+    "region": "region",
+    "availability_zones": [
+      "availability_zones-1a",
+      "availability_zones-1b",
+      "availability_zones-1c"
+    ],
+    "tags": {
+      "project": "name"
+    }
+  }
+}
